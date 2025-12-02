@@ -87,6 +87,7 @@ body {
   justify-content: space-between;
   gap: 20px;
   padding: 0;
+  position: relative;
 }
 
 .header-title {
@@ -101,6 +102,14 @@ body {
   display: flex;
   align-items: center;
   gap: 15px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.header-actions-desktop .search-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .header-link {

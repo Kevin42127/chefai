@@ -3,7 +3,6 @@
     <div class="chat-messages" ref="messagesContainer">
       <div v-if="messages.length === 0 && !isLoading" class="empty-state">
         <div class="empty-state-content">
-          <p class="empty-description">輸入您想要的食物或料理類型，AI 將為您生成詳細的食譜</p>
           <div class="example-section">
             <h4 class="example-title">使用範例</h4>
             <div class="example-list">
@@ -22,6 +21,7 @@
                 <span class="material-symbols-outlined example-arrow">arrow_forward</span>
               </div>
             </div>
+            <p class="empty-description">輸入您想要的食物或料理類型，AI 將為您生成詳細的食譜</p>
           </div>
         </div>
       </div>
@@ -62,32 +62,40 @@
     </div>
     <div class="chat-input-container">
       <div class="input-wrapper">
-        <textarea
-          ref="inputRef"
-          v-model="inputMessage"
-          placeholder="輸入您想要的食物或料理類型..."
-          @keydown="handleKeyDown"
-          :disabled="isLoading"
-          class="chat-input"
-          rows="1"
-        ></textarea>
-        <div class="input-actions">
+        <div class="input-container-inner">
+          <textarea
+            ref="inputRef"
+            v-model="inputMessage"
+            placeholder="輸入您想要的食物或料理類型..."
+            @keydown="handleKeyDown"
+            :disabled="isLoading"
+            class="chat-input"
+            rows="1"
+          ></textarea>
           <button
-            @click="sendMessage"
-            :disabled="isLoading || !inputMessage.trim()"
-            class="send-button"
-            title="發送 (Enter 或 Ctrl+Enter)"
+            @click="toggleVoiceInput"
+            :disabled="isLoading"
+            :class="['voice-button', { 'recording': isRecording }]"
+            :title="isRecording ? '停止錄音' : '語音輸入'"
           >
-            <span class="material-symbols-outlined">send</span>
+            <span class="material-symbols-outlined">{{ isRecording ? 'mic' : 'mic_none' }}</span>
           </button>
         </div>
+        <button
+          @click="sendMessage"
+          :disabled="isLoading || !inputMessage.trim()"
+          class="send-button"
+          title="發送 (Enter 或 Ctrl+Enter)"
+        >
+          <span class="material-symbols-outlined">send</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, nextTick, onMounted, watch } from 'vue';
+import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue';
 import { generateRecipeStream } from '../services/apiService.js';
 import MessageItem from './MessageItem.vue';
 
@@ -105,7 +113,9 @@ export default {
     const loadingStep = ref(0);
     const messagesContainer = ref(null);
     const inputRef = ref(null);
+    const isRecording = ref(false);
     let currentStreamController = null;
+    let recognition = null;
 
     const quickSuggestions = [
       '我想做義大利麵',
@@ -404,11 +414,6 @@ export default {
       adjustTextareaHeight();
     });
 
-    onMounted(() => {
-      loadMessages();
-      scrollToBottom(false);
-      focusInput();
-    });
 
     const searchMessages = (query) => {
       if (!query.trim()) {
@@ -445,6 +450,82 @@ export default {
       saveMessages();
     }, { deep: true });
 
+    const initSpeechRecognition = () => {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        return null;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognitionInstance = new SpeechRecognition();
+      
+      recognitionInstance.lang = 'zh-TW';
+      recognitionInstance.continuous = false;
+      recognitionInstance.interimResults = false;
+
+      recognitionInstance.onstart = () => {
+        isRecording.value = true;
+      };
+
+      recognitionInstance.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        inputMessage.value = transcript;
+        adjustTextareaHeight();
+      };
+
+      recognitionInstance.onerror = (event) => {
+        console.error('語音識別錯誤:', event.error);
+        isRecording.value = false;
+        if (event.error === 'not-allowed') {
+          alert('請允許瀏覽器使用麥克風權限');
+        } else if (event.error === 'no-speech') {
+          alert('未偵測到語音，請重試');
+        }
+      };
+
+      recognitionInstance.onend = () => {
+        isRecording.value = false;
+      };
+
+      return recognitionInstance;
+    };
+
+    const toggleVoiceInput = () => {
+      if (isLoading.value) return;
+
+      if (!recognition) {
+        recognition = initSpeechRecognition();
+        if (!recognition) {
+          alert('您的瀏覽器不支援語音輸入功能');
+          return;
+        }
+      }
+
+      if (isRecording.value) {
+        recognition.stop();
+        isRecording.value = false;
+      } else {
+        try {
+          recognition.start();
+        } catch (error) {
+          console.error('啟動語音識別失敗:', error);
+          isRecording.value = false;
+        }
+      }
+    };
+
+    onMounted(() => {
+      loadMessages();
+      scrollToBottom(false);
+      focusInput();
+      recognition = initSpeechRecognition();
+    });
+
+    onUnmounted(() => {
+      if (recognition && isRecording.value) {
+        recognition.stop();
+      }
+    });
+
     return {
       messages,
       inputMessage,
@@ -459,6 +540,8 @@ export default {
       useSuggestion,
       useExample,
       handleKeyDown,
+      toggleVoiceInput,
+      isRecording,
       searchMessages
     };
   }

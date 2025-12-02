@@ -1241,12 +1241,19 @@ body {
 .input-wrapper {
   display: flex;
   gap: 10px;
+  align-items: center;
+}
+
+.input-container-inner {
+  flex: 1;
+  position: relative;
+  display: flex;
   align-items: flex-end;
 }
 
 .chat-input {
   flex: 1;
-  padding: 10px 16px;
+  padding: 10px 52px 10px 16px;
   border: 1px solid var(--border-color);
   font-size: 15px;
   outline: none;
@@ -1287,6 +1294,61 @@ body {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
+}
+
+.voice-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: transparent;
+  color: var(--text-tertiary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+  border-radius: 50%;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.voice-button:hover:not(:disabled) {
+  color: var(--color-primary);
+  background-color: var(--bg-secondary);
+}
+
+.voice-button:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.voice-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.voice-button.recording {
+  background-color: var(--color-danger);
+  color: #ffffff;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.voice-button.recording:hover {
+  background-color: #c82333;
+  color: #ffffff;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .send-button {
@@ -1343,6 +1405,10 @@ body {
 .send-button .material-symbols-outlined,
 .clear-button .material-symbols-outlined {
   font-size: 20px;
+}
+
+.voice-button .material-symbols-outlined {
+  font-size: 24px;
 }
 
 @media (min-width: 769px) {
@@ -1773,8 +1839,9 @@ body {
 .empty-description {
   font-size: 16px;
   color: var(--text-secondary);
-  margin: 0 0 40px 0;
+  margin: 12px 0 0 0;
   line-height: 1.6;
+  text-align: center;
 }
 
 .example-section {

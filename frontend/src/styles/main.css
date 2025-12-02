@@ -2040,8 +2040,7 @@ body {
 @media (max-width: 768px) {
   .header {
     padding: 10px 15px;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1000;
   }
 
@@ -2255,8 +2254,7 @@ body {
 @media (max-width: 480px) {
   .header {
     padding: 8px 12px;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 1000;
   }
 

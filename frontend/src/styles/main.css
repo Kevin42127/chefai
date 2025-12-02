@@ -1706,6 +1706,7 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: max(4px, env(safe-area-inset-bottom));
+    gap: 0;
   }
 
   .message-content {
@@ -1755,6 +1756,7 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: max(4px, env(safe-area-inset-bottom));
+    gap: 0;
   }
 
   .chat-input {
@@ -1919,6 +1921,7 @@ body {
     padding-left: 12px;
     padding-right: 12px;
     padding-bottom: max(4px, env(safe-area-inset-bottom));
+    gap: 0;
   }
 
   .chat-input {

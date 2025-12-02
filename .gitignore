@@ -1,0 +1,30 @@
+# 依賴
+node_modules/
+package-lock.json
+yarn.lock
+
+# 環境變數
+.env
+.env.local
+.env.*.local
+
+# 建置輸出
+dist/
+build/
+*.log
+
+# 編輯器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 作業系統
+.DS_Store
+Thumbs.db
+
+# 臨時文件
+*.tmp
+*.temp
+

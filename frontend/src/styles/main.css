@@ -1646,17 +1646,12 @@ body {
   }
 
   .app {
-    min-height: 100vh;
     height: auto;
   }
 
   .chat-container {
     overflow: visible;
     flex: none;
-  }
-
-  .chat-container:has(.message-item) {
-    min-height: calc(100vh - 60px);
   }
 
   .chat-messages {

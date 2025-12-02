@@ -2303,9 +2303,9 @@ body {
   }
 
   .dialog-container {
-    margin: 12px;
+    margin: 20px;
     min-width: auto;
-    max-width: calc(100% - 24px);
+    max-width: calc(100% - 40px);
   }
 
   .dialog-header {
@@ -2517,20 +2517,20 @@ body {
   }
 
   .dialog-container {
-    margin: 10px;
-    max-width: calc(100% - 20px);
+    margin: 20px;
+    max-width: calc(100% - 40px);
   }
 
   .dialog-header {
-    padding: 18px 18px 14px;
+    padding: 20px 20px 16px;
   }
 
   .dialog-header h3 {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .dialog-body {
-    padding: 18px;
+    padding: 20px;
   }
 
   .dialog-body p {

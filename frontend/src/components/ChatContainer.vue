@@ -1,20 +1,6 @@
 <template>
   <div class="chat-container">
     <div class="chat-messages" ref="messagesContainer">
-      <div v-if="messages.length === 0" class="welcome-message">
-        <p>歡迎使用 ChefAI！</p>
-        <p>請告訴我您想要什麼樣的食物，我會為您生成詳細的食譜。</p>
-        <div class="quick-suggestions">
-          <button
-            v-for="(suggestion, index) in quickSuggestions"
-            :key="index"
-            @click="useSuggestion(suggestion)"
-            :class="['suggestion-button', `suggestion-button-${index}`]"
-          >
-            {{ suggestion }}
-          </button>
-        </div>
-      </div>
       <MessageItem
         v-for="(message, index) in messages"
         :key="index"
@@ -339,11 +325,7 @@ export default {
       nextTick(() => {
         if (inputRef.value) {
           inputRef.value.style.height = 'auto';
-          const scrollHeight = inputRef.value.scrollHeight;
-          const isMobile = window.innerWidth <= 768;
-          const minHeight = isMobile ? 44 : 50;
-          const maxHeight = 120;
-          inputRef.value.style.height = Math.max(minHeight, Math.min(scrollHeight, maxHeight)) + 'px';
+          inputRef.value.style.height = Math.min(inputRef.value.scrollHeight, 120) + 'px';
         }
       });
     };

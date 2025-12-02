@@ -1640,38 +1640,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  html, body {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .app {
-    height: auto;
-  }
-
-  .chat-container {
-    overflow: visible;
-    flex: none;
-    display: block;
-  }
-
-  .chat-messages {
-    overflow: visible;
-    flex: none;
-    display: block;
-    padding: 15px 15px 15px 20px;
-    padding-bottom: 0;
-  }
-
-  .chat-messages:has(.message-item) {
-    padding-bottom: 20px;
-  }
-
   .header {
     padding: 10px 15px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
   }
 
   .header-content {
@@ -1702,30 +1672,8 @@ body {
     display: block;
   }
 
-  .chat-input-container {
-    background-color: var(--bg-primary);
-    border-top: 2px solid var(--border-color);
-    box-shadow: 0 -2px 8px var(--shadow);
-    padding-top: 8px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: max(0px, env(safe-area-inset-bottom));
-    gap: 0;
-    flex: none;
-    display: block;
-  }
-
-  .input-wrapper {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-  }
-
-  .chat-input {
-    flex: 1;
-    min-height: 44px !important;
-    height: 44px !important;
-    line-height: 1.4;
+  .chat-messages {
+    padding: 15px 15px 15px 20px;
   }
 
   .message-content {
@@ -1735,6 +1683,52 @@ body {
   .message-item {
     gap: 6px;
     margin-bottom: 10px;
+  }
+
+  .message-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .message-avatar .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  .message-text {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .welcome-message {
+    padding: 30px 15px;
+    margin: 15px auto;
+  }
+
+  .welcome-message p {
+    font-size: 14px;
+  }
+
+  .quick-suggestions {
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .suggestion-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .chat-input-container {
+    padding: 10px 15px;
+  }
+
+  .chat-input {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .send-button {
+    padding: 10px 14px;
   }
 
   .message-avatar {

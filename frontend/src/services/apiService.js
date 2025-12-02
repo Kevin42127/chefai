@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // 流式回應生成
 export const generateRecipeStream = async (message, onChunk, onError, onComplete, abortController) => {

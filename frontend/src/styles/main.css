@@ -1652,11 +1652,13 @@ body {
   .chat-container {
     overflow: visible;
     flex: none;
+    display: block;
   }
 
   .chat-messages {
     overflow: visible;
     flex: none;
+    display: block;
     padding: 15px 15px 15px 20px;
     padding-bottom: 0;
   }
@@ -1709,6 +1711,8 @@ body {
     padding-right: 15px;
     padding-bottom: max(0px, env(safe-area-inset-bottom));
     gap: 0;
+    flex: none;
+    display: block;
   }
 
   .message-content {

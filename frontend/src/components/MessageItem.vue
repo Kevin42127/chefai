@@ -176,7 +176,7 @@ export default {
             if (!content.startsWith('•')) {
               content = '• ' + content;
             }
-            formatted += `<span class="recipe-ingredient">${escapeHtml(content)}</span>`;
+            formatted += `<p class="recipe-ingredient">${escapeHtml(content)}</p>`;
           } else {
             formatted += `<p class="recipe-step">${escapeHtml(content)}</p>`;
           }

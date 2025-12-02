@@ -152,6 +152,20 @@ export default {
         desc: '美味的甜點製作方法',
         color: '#f093fb',
         hoverColor: '#f5576c'
+      },
+      {
+        icon: 'restaurant_menu',
+        text: '我有雞蛋、番茄、洋蔥，可以做什麼？',
+        desc: '根據現有食材推薦食譜',
+        color: '#fa709a',
+        hoverColor: '#fee140'
+      },
+      {
+        icon: 'schedule',
+        text: '推薦一道適合早餐的料理',
+        desc: '根據時間/場合推薦',
+        color: '#30cfd0',
+        hoverColor: '#330867'
       }
     ];
 
@@ -188,6 +202,23 @@ export default {
           });
         }
       });
+    };
+
+    const extractPreviousRecipes = () => {
+      const previousRecipes = [];
+      messages.value.forEach(msg => {
+        if (msg.type === 'assistant' && msg.content) {
+          const content = msg.content;
+          const foodNameMatch = content.match(/【食物名稱】\s*\n([^\n【]+)/);
+          if (foodNameMatch) {
+            const foodName = foodNameMatch[1].trim();
+            if (foodName) {
+              previousRecipes.push(foodName);
+            }
+          }
+        }
+      });
+      return previousRecipes;
     };
 
     const sendMessage = async () => {
@@ -228,6 +259,7 @@ export default {
 
       try {
         let fullContent = '';
+        const previousRecipes = extractPreviousRecipes();
         
         await generateRecipeStream(
           message,
@@ -259,7 +291,8 @@ export default {
             emit('messages-updated', messages.value.length);
             currentStreamController = null;
           },
-          currentStreamController
+          currentStreamController,
+          previousRecipes
         );
       } catch (error) {
         messages.value[assistantMessageIndex].content = `錯誤：${error.message || '無法生成食譜，請稍後再試。'}`;
@@ -318,6 +351,7 @@ export default {
 
       try {
         let fullContent = '';
+        const previousRecipes = extractPreviousRecipes();
         
         await generateRecipeStream(
           suggestion,
@@ -345,7 +379,8 @@ export default {
             emit('messages-updated', messages.value.length);
             currentStreamController = null;
           },
-          currentStreamController
+          currentStreamController,
+          previousRecipes
         );
       } catch (error) {
         clearTimeout(step2Timer);

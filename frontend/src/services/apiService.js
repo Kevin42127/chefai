@@ -1,14 +1,17 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // 流式回應生成
-export const generateRecipeStream = async (message, onChunk, onError, onComplete, abortController) => {
+export const generateRecipeStream = async (message, onChunk, onError, onComplete, abortController, previousRecipes = []) => {
   try {
     const response = await fetch(`${API_BASE_URL}/recipe/generate-stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ 
+        message,
+        previousRecipes: previousRecipes || []
+      }),
       signal: abortController?.signal
     });
 

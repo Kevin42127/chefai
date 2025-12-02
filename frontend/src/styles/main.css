@@ -1653,6 +1653,9 @@ body {
   .chat-container {
     overflow: visible;
     flex: none;
+  }
+
+  .chat-container:has(.message-item) {
     min-height: calc(100vh - 60px);
   }
 

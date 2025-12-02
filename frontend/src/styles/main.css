@@ -1014,11 +1014,6 @@ body {
   background-color: var(--user-msg-bg);
   color: #fff;
   border-color: var(--user-msg-border);
-  transition: background-color 0.2s ease;
-}
-
-.message-item.user .message-text:hover {
-  background-color: #1e40af;
 }
 
 
@@ -1220,9 +1215,36 @@ body {
   color: var(--text-primary);
 }
 
+.recommendation-section {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.recommendation-item {
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 6px 0;
+  padding-left: 8px;
+  font-weight: 500;
+}
+
 [data-theme="dark"] .message-text .recipe-section,
 [data-theme="dark"] .message-text h4.recipe-section {
   color: #7c9eff !important;
+}
+
+[data-theme="dark"] .message-text .recommendation-section {
+  color: #7c9eff !important;
+  border-bottom-color: #7c9eff;
+}
+
+[data-theme="dark"] .message-text .recommendation-item {
+  color: #b8d4ff;
 }
 
 .chat-input-container {

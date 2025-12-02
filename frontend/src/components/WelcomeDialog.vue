@@ -48,6 +48,7 @@ export default {
 
     const close = () => {
       show.value = false;
+      localStorage.setItem(STORAGE_KEY, 'true');
     };
 
     onMounted(() => {

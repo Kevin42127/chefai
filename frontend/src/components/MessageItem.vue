@@ -82,6 +82,7 @@ export default {
       let skipNext = false;
       let inIngredientSection = false;
       let ingredientContainerOpen = false;
+      let inRecommendationSection = false;
       
       lines.forEach((line, index) => {
         if (skipNext) {
@@ -96,18 +97,33 @@ export default {
             ingredientContainerOpen = false;
             inIngredientSection = false;
           }
+          if (inRecommendationSection && index > 0) {
+            const prevLine = lines[index - 1].trim();
+            if (prevLine && !prevLine.match(/^【/)) {
+              inRecommendationSection = false;
+            }
+          }
           formatted += '<br>';
           return;
         }
         
         if (trimmed.match(/^【.*】/)) {
           const sectionName = trimmed.replace(/^【|】$/g, '');
-          if (sectionName === '食物名稱') {
+          if (sectionName === '推薦選項') {
             if (ingredientContainerOpen) {
               formatted += '</div>';
               ingredientContainerOpen = false;
             }
             inIngredientSection = false;
+            inRecommendationSection = true;
+            formatted += `<h4 class="recipe-section recommendation-section">${escapeHtml(trimmed)}</h4>`;
+          } else if (sectionName === '食物名稱') {
+            if (ingredientContainerOpen) {
+              formatted += '</div>';
+              ingredientContainerOpen = false;
+            }
+            inIngredientSection = false;
+            inRecommendationSection = false;
             let titleAfterMark = trimmed.replace(/^【食物名稱】/, '').trim();
             if (titleAfterMark) {
               titleAfterMark = titleAfterMark.replace(/^[•·\-*\s]+/g, '');
@@ -136,6 +152,7 @@ export default {
               ingredientContainerOpen = false;
             }
             inIngredientSection = true;
+            inRecommendationSection = false;
             formatted += `<h4 class="recipe-section">${escapeHtml(trimmed)}</h4>`;
           } else {
             if (ingredientContainerOpen) {
@@ -143,6 +160,7 @@ export default {
               ingredientContainerOpen = false;
             }
             inIngredientSection = false;
+            inRecommendationSection = false;
             formatted += `<h4 class="recipe-section">${escapeHtml(trimmed)}</h4>`;
           }
         }
@@ -177,6 +195,8 @@ export default {
               content = '• ' + content;
             }
             formatted += `<p class="recipe-ingredient">${escapeHtml(content)}</p>`;
+          } else if (inRecommendationSection) {
+            formatted += `<p class="recipe-step recommendation-item">${escapeHtml(content)}</p>`;
           } else {
             formatted += `<p class="recipe-step">${escapeHtml(content)}</p>`;
           }

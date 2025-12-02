@@ -2303,25 +2303,25 @@ body {
   }
 
   .dialog-container {
-    margin: 20px;
+    margin: 12px;
     min-width: auto;
-    max-width: calc(100% - 40px);
+    max-width: calc(100% - 24px);
   }
 
   .dialog-header {
-    padding: 16px 16px 12px;
+    padding: 20px 20px 16px;
   }
 
   .dialog-header h3 {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .dialog-body {
-    padding: 16px;
+    padding: 20px;
   }
 
   .dialog-body p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .dialog-footer {
@@ -2517,24 +2517,24 @@ body {
   }
 
   .dialog-container {
-    margin: 15px;
-    max-width: calc(100% - 30px);
+    margin: 10px;
+    max-width: calc(100% - 20px);
   }
 
   .dialog-header {
-    padding: 14px 14px 10px;
+    padding: 18px 18px 14px;
   }
 
   .dialog-header h3 {
-    font-size: 15px;
+    font-size: 17px;
   }
 
   .dialog-body {
-    padding: 14px;
+    padding: 18px;
   }
 
   .dialog-body p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .dialog-footer {

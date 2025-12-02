@@ -1639,8 +1639,34 @@ body {
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .chat-container {
+    overflow: visible;
+    flex: none;
+    min-height: calc(100vh - 60px);
+  }
+
+  .chat-messages {
+    overflow: visible;
+    flex: none;
+    padding: 15px 15px 15px 20px;
+    padding-bottom: 20px;
+  }
+
   .header {
     padding: 10px 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
   .header-content {
@@ -1671,8 +1697,11 @@ body {
     display: block;
   }
 
-  .chat-messages {
-    padding: 15px 15px 15px 20px;
+  .chat-input-container {
+    position: sticky;
+    bottom: 0;
+    z-index: 99;
+    background-color: var(--bg-primary);
   }
 
   .message-content {

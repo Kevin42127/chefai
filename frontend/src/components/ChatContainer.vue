@@ -41,7 +41,7 @@
         <textarea
           ref="inputRef"
           v-model="inputMessage"
-          placeholder="輸入您想要的食物或料理類型（例如：我想做 4 人份的義大利麵）..."
+          placeholder="輸入您想要的食物或料理類型..."
           @keydown="handleKeyDown"
           :disabled="isLoading"
           class="chat-input"

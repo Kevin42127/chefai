@@ -339,7 +339,11 @@ export default {
       nextTick(() => {
         if (inputRef.value) {
           inputRef.value.style.height = 'auto';
-          inputRef.value.style.height = Math.min(inputRef.value.scrollHeight, 120) + 'px';
+          const scrollHeight = inputRef.value.scrollHeight;
+          const isMobile = window.innerWidth <= 768;
+          const minHeight = isMobile ? 44 : 50;
+          const maxHeight = 120;
+          inputRef.value.style.height = Math.max(minHeight, Math.min(scrollHeight, maxHeight)) + 'px';
         }
       });
     };

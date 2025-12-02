@@ -1723,8 +1723,9 @@ body {
 
   .chat-input {
     flex: 1;
-    min-height: auto;
-    height: auto;
+    min-height: 44px !important;
+    height: 44px !important;
+    line-height: 1.4;
   }
 
   .message-content {

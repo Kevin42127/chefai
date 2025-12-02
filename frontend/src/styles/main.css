@@ -1715,6 +1715,18 @@ body {
     display: block;
   }
 
+  .input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .chat-input {
+    flex: 1;
+    min-height: auto;
+    height: auto;
+  }
+
   .message-content {
     max-width: 80%;
   }
@@ -1768,6 +1780,9 @@ body {
   .chat-input {
     padding: 10px 14px;
     font-size: 15px;
+    min-height: 44px;
+    height: 44px;
+    line-height: 1.4;
   }
 
   .send-button {
@@ -1933,6 +1948,9 @@ body {
   .chat-input {
     padding: 8px 12px;
     font-size: 14px;
+    min-height: 40px;
+    height: 40px;
+    line-height: 1.4;
   }
 
   .send-button {

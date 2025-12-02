@@ -81,6 +81,7 @@ export default {
       let formatted = '';
       let skipNext = false;
       let inIngredientSection = false;
+      let ingredientContainerOpen = false;
       
       lines.forEach((line, index) => {
         if (skipNext) {
@@ -90,6 +91,11 @@ export default {
         
         const trimmed = line.trim();
         if (!trimmed) {
+          if (ingredientContainerOpen) {
+            formatted += '</div>';
+            ingredientContainerOpen = false;
+            inIngredientSection = false;
+          }
           formatted += '<br>';
           return;
         }
@@ -97,6 +103,11 @@ export default {
         if (trimmed.match(/^【.*】/)) {
           const sectionName = trimmed.replace(/^【|】$/g, '');
           if (sectionName === '食物名稱') {
+            if (ingredientContainerOpen) {
+              formatted += '</div>';
+              ingredientContainerOpen = false;
+            }
+            inIngredientSection = false;
             let titleAfterMark = trimmed.replace(/^【食物名稱】/, '').trim();
             if (titleAfterMark) {
               titleAfterMark = titleAfterMark.replace(/^[•·\-*\s]+/g, '');
@@ -120,39 +131,77 @@ export default {
               }
             }
           } else if (sectionName === '食材清單') {
+            if (ingredientContainerOpen) {
+              formatted += '</div>';
+              ingredientContainerOpen = false;
+            }
             inIngredientSection = true;
             formatted += `<h4 class="recipe-section">${escapeHtml(trimmed)}</h4>`;
           } else {
+            if (ingredientContainerOpen) {
+              formatted += '</div>';
+              ingredientContainerOpen = false;
+            }
             inIngredientSection = false;
             formatted += `<h4 class="recipe-section">${escapeHtml(trimmed)}</h4>`;
           }
         }
         else if (trimmed.startsWith('食物名稱：') || trimmed.startsWith('##') || trimmed.match(/^#{1,3}\s/)) {
+          if (ingredientContainerOpen) {
+            formatted += '</div>';
+            ingredientContainerOpen = false;
+            inIngredientSection = false;
+          }
           let title = trimmed.replace(/^食物名稱：|^#{1,3}\s/, '');
           title = title.replace(/^[•·\-*\s]+/g, '');
           formatted += `<h3 class="recipe-title">${escapeHtml(title)}</h3>`;
         }
         else if (trimmed.match(/^\d+[\.、]\s*/)) {
+          if (ingredientContainerOpen) {
+            formatted += '</div>';
+            ingredientContainerOpen = false;
+            inIngredientSection = false;
+          }
           formatted += `<p class="recipe-step">${escapeHtml(trimmed)}</p>`;
         }
         else if (trimmed.startsWith('•') || trimmed.startsWith('·') || trimmed.startsWith('-') || trimmed.startsWith('*')) {
           let content = trimmed.replace(/^[*•·-]\s*/, '• ');
           if (inIngredientSection) {
+            if (!ingredientContainerOpen) {
+              formatted += '<div class="ingredients-container">';
+              ingredientContainerOpen = true;
+            }
             content = content.replace(/\s+\d+[\s\S]*?(公克|毫升|大匙|小匙|杯|個|公斤|公升|盎司|磅|g|ml|kg|L|tbsp|tsp|cup|piece|pc|oz|lb)/gi, '');
             content = content.replace(/\s+\d+[\s\S]*?$/, '').trim();
             if (!content.startsWith('•')) {
               content = '• ' + content;
             }
+            formatted += `<span class="recipe-ingredient">${escapeHtml(content)}</span>`;
+          } else {
+            formatted += `<p class="recipe-step">${escapeHtml(content)}</p>`;
           }
-          formatted += `<p class="recipe-ingredient">${escapeHtml(content)}</p>`;
         }
         else if (trimmed.match(/^[食材步驟烹飪].*[：:]/)) {
+          if (ingredientContainerOpen) {
+            formatted += '</div>';
+            ingredientContainerOpen = false;
+            inIngredientSection = false;
+          }
           formatted += `<h4 class="recipe-section">${escapeHtml(trimmed)}</h4>`;
         }
         else {
+          if (ingredientContainerOpen) {
+            formatted += '</div>';
+            ingredientContainerOpen = false;
+            inIngredientSection = false;
+          }
           formatted += `<p>${escapeHtml(trimmed)}</p>`;
         }
       });
+      
+      if (ingredientContainerOpen) {
+        formatted += '</div>';
+      }
       
       return formatted;
     });

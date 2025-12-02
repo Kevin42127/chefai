@@ -671,6 +671,7 @@ body {
   flex-direction: column;
   flex: 1;
   overflow: hidden;
+  min-height: 0;
 }
 
 .chat-messages {
@@ -681,6 +682,9 @@ body {
   transition: background-color 0.3s ease;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+  min-height: 0;
 }
 
 .welcome-message {
@@ -1188,9 +1192,17 @@ body {
   color: var(--color-primary);
 }
 
-.recipe-ingredient {
+.ingredients-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 8px 0;
   padding-left: 20px;
+}
+
+.recipe-ingredient {
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 [data-theme="dark"] .recipe-ingredient {
@@ -2044,6 +2056,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+    background-color: var(--header-bg);
   }
 
   .header-content {
@@ -2088,6 +2101,9 @@ body {
     padding: 15px 15px 15px 20px;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
+    min-height: 0;
   }
 
   .message-content {
@@ -2260,6 +2276,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+    background-color: var(--header-bg);
   }
 
   .header-title {
@@ -2305,6 +2322,9 @@ body {
     padding: 12px 12px 12px 16px;
     overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
+    min-height: 0;
   }
 
   .message-content {

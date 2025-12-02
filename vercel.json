@@ -1,7 +1,16 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build",
+  "buildCommand": "npm install && cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
+  "functions": {
+    "api/recipe/generate-stream.js": {
+      "maxDuration": 60
+    }
+  },
   "rewrites": [
+    {
+      "source": "/api/recipe/(.*)",
+      "destination": "/api/recipe/$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

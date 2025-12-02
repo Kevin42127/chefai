@@ -1,0 +1,13 @@
+{
+  "name": "chefai",
+  "version": "1.0.0",
+  "description": "ChefAI - 智慧食譜生成應用",
+  "type": "module",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "dependencies": {
+    "groq-sdk": "^0.3.0"
+  }
+}
+

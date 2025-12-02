@@ -1355,6 +1355,9 @@ body {
 .dialog-header {
   padding: 20px 20px 16px;
   border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .dialog-header h3 {
@@ -1432,6 +1435,115 @@ body {
 
 .dialog-close .material-symbols-outlined {
   font-size: 24px;
+}
+
+.welcome-dialog {
+  max-width: 500px;
+}
+
+.welcome-content {
+  line-height: 1.8;
+}
+
+.welcome-content p {
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+}
+
+.welcome-content ul {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.welcome-content li {
+  margin: 8px 0;
+  color: var(--text-primary);
+}
+
+.welcome-tip {
+  margin-top: 16px !important;
+  padding: 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.welcome-footer {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.welcome-footer .dialog-button {
+  width: 100%;
+}
+
+.welcome-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.welcome-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.welcome-checkbox-custom {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-primary);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.welcome-checkbox-custom::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.welcome-checkbox-input:checked + .welcome-checkbox-custom {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.welcome-checkbox-input:checked + .welcome-checkbox-custom::after {
+  display: block;
+}
+
+.welcome-checkbox:hover .welcome-checkbox-custom {
+  border-color: #667eea;
+  background-color: var(--bg-secondary);
+}
+
+.welcome-checkbox-input:checked:hover + .welcome-checkbox-custom {
+  background-color: #5568d3;
+  border-color: #5568d3;
+}
+
+.welcome-checkbox-label {
+  color: var(--text-primary);
+  cursor: pointer;
 }
 
 .empty-list {

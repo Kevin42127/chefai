@@ -8,6 +8,7 @@
     <ChatContainer ref="chatContainerRef" @messages-updated="handleMessagesUpdated" />
     <Notification />
     <ConfirmDialog />
+    <WelcomeDialog />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import ChatContainer from './components/ChatContainer.vue';
 import Header from './components/Header.vue';
 import Notification from './components/Notification.vue';
 import ConfirmDialog from './components/ConfirmDialog.vue';
+import WelcomeDialog from './components/WelcomeDialog.vue';
 
 export default {
   name: 'App',
@@ -24,7 +26,8 @@ export default {
     ChatContainer,
     Header,
     Notification,
-    ConfirmDialog
+    ConfirmDialog,
+    WelcomeDialog
   },
   setup() {
     const chatContainerRef = ref(null);

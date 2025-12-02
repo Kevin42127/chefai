@@ -1847,7 +1847,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px 40px 20px;
+  min-height: 100%;
+  padding: 40px 20px 40px 20px;
+  box-sizing: border-box;
 }
 
 .empty-state-content {
@@ -2460,7 +2462,7 @@ body {
   }
 
   .empty-state {
-    padding: 80px 12px 20px 12px;
+    padding: 40px 12px 20px 12px;
   }
 
   .empty-description {
@@ -2571,7 +2573,7 @@ body {
   }
 
   .empty-state {
-    padding: 80px 12px 20px 12px;
+    padding: 40px 12px 20px 12px;
   }
 
   .empty-description {

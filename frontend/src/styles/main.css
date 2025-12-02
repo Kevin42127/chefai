@@ -1701,6 +1701,7 @@ body {
     background-color: var(--bg-primary);
     border-top: 2px solid var(--border-color);
     box-shadow: 0 -2px 8px var(--shadow);
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
   }
 
   .message-content {
@@ -1747,6 +1748,7 @@ body {
 
   .chat-input-container {
     padding: 10px 15px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
   }
 
   .chat-input {
@@ -1908,6 +1910,7 @@ body {
 
   .chat-input-container {
     padding: 8px 12px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
   }
 
   .chat-input {

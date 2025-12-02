@@ -1,6 +1,30 @@
 <template>
   <div class="chat-container">
     <div class="chat-messages" ref="messagesContainer">
+      <div v-if="messages.length === 0 && !isLoading" class="empty-state">
+        <div class="empty-state-content">
+          <p class="empty-description">輸入您想要的食物或料理類型，AI 將為您生成詳細的食譜</p>
+          <div class="example-section">
+            <h4 class="example-title">使用範例</h4>
+            <div class="example-list">
+              <div 
+                v-for="(example, index) in exampleList" 
+                :key="index"
+                class="example-item"
+                :style="{ '--example-color': example.color, '--example-hover-color': example.hoverColor }"
+                @click="useExample(example.text)"
+              >
+                <span class="material-symbols-outlined example-icon">{{ example.icon }}</span>
+                <div class="example-content">
+                  <p class="example-text">{{ example.text }}</p>
+                  <p class="example-desc">{{ example.desc }}</p>
+                </div>
+                <span class="material-symbols-outlined example-arrow">arrow_forward</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <MessageItem
         v-for="(message, index) in messages"
         :key="index"
@@ -88,6 +112,37 @@ export default {
       '推薦一道簡單的菜',
       '做一道中式料理',
       '我想吃甜點'
+    ];
+
+    const exampleList = [
+      {
+        icon: 'ramen_dining',
+        text: '我想做義大利麵',
+        desc: '生成經典義大利麵食譜',
+        color: '#4facfe',
+        hoverColor: '#00f2fe'
+      },
+      {
+        icon: 'lunch_dining',
+        text: '推薦一道簡單的菜',
+        desc: '適合初學者的簡單料理',
+        color: '#43e97b',
+        hoverColor: '#38f9d7'
+      },
+      {
+        icon: 'rice_bowl',
+        text: '做一道中式料理',
+        desc: '傳統中式菜餚食譜',
+        color: '#f6d365',
+        hoverColor: '#ffd88a'
+      },
+      {
+        icon: 'cake',
+        text: '我想吃甜點',
+        desc: '美味的甜點製作方法',
+        color: '#f093fb',
+        hoverColor: '#f5576c'
+      }
     ];
 
     const loadMessages = () => {
@@ -211,6 +266,13 @@ export default {
       localStorage.removeItem(STORAGE_KEY);
       focusInput();
       emit('messages-updated', 0);
+    };
+
+    const useExample = async (text) => {
+      if (isLoading.value) return;
+      inputMessage.value = text;
+      await nextTick();
+      sendMessage();
     };
 
     const useSuggestion = async (suggestion) => {
@@ -391,9 +453,11 @@ export default {
       messagesContainer,
       inputRef,
       quickSuggestions,
+      exampleList,
       sendMessage,
       clearMessages,
       useSuggestion,
+      useExample,
       handleKeyDown,
       searchMessages
     };

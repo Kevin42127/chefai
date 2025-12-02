@@ -2,17 +2,21 @@
   <header class="header">
     <div class="header-content">
       <h1 class="header-title">ChefAI</h1>
-      <div class="header-actions-desktop">
+      <div class="header-search-center">
         <div class="search-container">
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="搜尋對話..."
-            class="search-input"
-            @input="handleSearch"
-          />
-          <span class="material-symbols-outlined search-icon">search</span>
+          <div class="search-input-wrapper">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="搜尋對話..."
+              class="search-input"
+              @input="handleSearch"
+            />
+            <span class="material-symbols-outlined search-icon">search</span>
+          </div>
         </div>
+      </div>
+      <div class="header-actions-desktop">
         <div class="header-buttons">
           <button
             v-if="hasMessages"
@@ -37,6 +41,20 @@
           </div>
         </div>
       </div>
+      <div class="header-actions-mobile">
+        <div class="mobile-search-container">
+          <div class="mobile-search-input-wrapper">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="搜尋對話..."
+              class="mobile-search-input"
+              @input="handleSearch"
+            />
+            <span class="material-symbols-outlined search-icon">search</span>
+          </div>
+        </div>
+      </div>
       <button
         @click="toggleMobileMenu"
         class="mobile-menu-button"
@@ -55,16 +73,6 @@
             </button>
           </div>
           <div class="mobile-menu-content">
-            <div class="mobile-search-container">
-              <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="搜尋對話..."
-                class="mobile-search-input"
-                @input="handleSearch"
-              />
-              <span class="material-symbols-outlined search-icon">search</span>
-            </div>
             <div class="mobile-menu-actions">
               <button
                 v-if="hasMessages"

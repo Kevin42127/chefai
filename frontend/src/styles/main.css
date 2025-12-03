@@ -2195,6 +2195,10 @@ body {
     min-height: 0;
   }
 
+  .android .chat-messages {
+    padding-top: 80px;
+  }
+
   .message-content {
     max-width: 80%;
   }
@@ -2417,6 +2421,10 @@ body {
     min-height: 0;
   }
 
+  .android .chat-messages {
+    padding-top: 60px;
+  }
+
   .message-content {
     max-width: 85%;
   }
@@ -2463,6 +2471,10 @@ body {
 
   .empty-state {
     padding: 20px 12px 20px 12px;
+  }
+
+  .android .empty-state {
+    padding-top: 10px;
   }
 
   .empty-description {
@@ -2574,6 +2586,10 @@ body {
 
   .empty-state {
     padding: 20px 12px 20px 12px;
+  }
+
+  .android .empty-state {
+    padding-top: 10px;
   }
 
   .empty-description {
